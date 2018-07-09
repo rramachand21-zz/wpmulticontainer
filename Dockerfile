@@ -63,7 +63,7 @@ RUN set -ex; \
 	rm wordpress.tar.gz; \
 	chown -R www-data:www-data /usr/src/wordpress
 
-COPY docker-entrypoint.sh 
-RUN CHMOD +x docker-entrypoint.sh
+COPY docker-entrypoint.sh /usr/local/bin/ 
+RUN CHMOD +x /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
