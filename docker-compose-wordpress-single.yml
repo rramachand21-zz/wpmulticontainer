@@ -1,13 +1,6 @@
 version: '3.3'
 
 services:
-   varnishcache:
-     image: wodby/varnish
-     restart: always
-     ports:
-      - "8000:6081"
-     environment:
-       VARNISH_BACKEND_HOST: wordpress
    wordpress:
      image: doodlemania/wpmulticontainer 
      volumes:
