@@ -1,6 +1,6 @@
 FROM php:7.2-apache
 
-# install the PHP extensions we need
+# install the PHP extensions we need, plug openssh
 RUN set -ex; \
 	\
 	savedAptMark="$(apt-mark showmanual)"; \
@@ -9,6 +9,7 @@ RUN set -ex; \
 	apt-get install -y --no-install-recommends \
 		libjpeg-dev \
 		libpng-dev \
+		openssh-server \
 	; \
 	\
 	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
@@ -26,10 +27,12 @@ RUN set -ex; \
 		| xargs -rt apt-mark manual; \
 	\
 	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
-	rm -rf /var/lib/apt/lists/*
+	rm -rf /var/lib/apt/lists/* \
+	echo "root:Docker!" | chpasswd
 
 #install redis php extension
 ENV PHPREDIS_VERSION=4.0.2
+COPY sshd_config /etc/ssh/
 
 RUN docker-php-source extract \
   && curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/$PHPREDIS_VERSION.tar.gz \
@@ -62,6 +65,8 @@ RUN set -ex; \
 	tar -xzf wordpress.tar.gz -C /usr/src/; \
 	rm wordpress.tar.gz; \
 	chown -R www-data:www-data /usr/src/wordpress
+
+EXPOSE 2222 80
 
 COPY docker-entrypoint.sh /usr/local/bin/ 
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
