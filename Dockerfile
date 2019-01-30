@@ -1,12 +1,16 @@
 FROM php:7.2-apache
+#https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-ssh-support
 
-# install the PHP extensions we need, plug openssh
+# install the PHP extensions we need, plus openssh
 RUN set -ex; \
 	\
 	savedAptMark="$(apt-mark showmanual)"; \
 	\
+	export DEBIAN_FRONTEND=noninteractive; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends \
+		dialog \
+		apt-utils \
 		libjpeg-dev \
 		libpng-dev \
 		openssh-server \
