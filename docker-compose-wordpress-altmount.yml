@@ -1,0 +1,9 @@
+version: '3.3'
+
+services:
+   wordpress:
+     image: doodlemania/wpmulticontainer 
+     volumes:
+      - www:/external
+      - log:/var/log/php
+     restart: always

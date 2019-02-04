@@ -8,8 +8,8 @@ RUN set -ex; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends \
 		libjpeg-dev \
-		libpng-dev \
-		openssh-server \
+		libpng-dev 
+#		openssh-server \
 	; \
 	\
 	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
@@ -27,12 +27,12 @@ RUN set -ex; \
 		| xargs -rt apt-mark manual; \
 	\
 	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
-	rm -rf /var/lib/apt/lists/* \
-	echo "root:Docker!" | chpasswd
+	rm -rf /var/lib/apt/lists/* 
+#	echo "root:Docker!" | chpasswd
 
 #install redis php extension
 ENV PHPREDIS_VERSION=4.0.2
-COPY sshd_config /etc/ssh/
+#COPY sshd_config /etc/ssh/
 
 RUN docker-php-source extract \
   && curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/$PHPREDIS_VERSION.tar.gz \
