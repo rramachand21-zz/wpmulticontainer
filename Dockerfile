@@ -12,7 +12,7 @@ RUN set -ex; \
 		dialog \
 		apt-utils \
 		libjpeg-dev \
-		libpng-dev 
+		libpng-dev \ 
 #		openssh-server \
 	; \
 	\
