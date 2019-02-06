@@ -22,6 +22,10 @@ file_env() {
 	export "$var"="$val"
 	unset "$fileVar"
 }
+echo "trying to create symlink"
+ln -s /external /var/www/html
+echo "done creating synmlink"
+#chmod -R 755 /var/www/html/wp-content/plugins
 
 if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
 	if [ "$(id -u)" = '0' ]; then

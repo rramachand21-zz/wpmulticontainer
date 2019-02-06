@@ -4,6 +4,6 @@ services:
    wordpress:
      image: doodlemania/wpmulticontainer 
      volumes:
-      - www:/var/www/html
+      - www:/external
       - log:/var/log/php
      restart: always

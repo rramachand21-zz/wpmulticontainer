@@ -59,8 +59,6 @@ RUN { \
 
 RUN a2enmod rewrite expires
 
-VOLUME /var/www/html
-
 ENV WORDPRESS_VERSION 5.0 
 
 RUN set -ex; \
